@@ -8,7 +8,7 @@ import editIcon from '@/public/icons/edit.png'
 const Menu: FC<{
     setIsOpen: Dispatch<SetStateAction<boolean>>
 }> = ({ setIsOpen }) => {
-    const ref = useRef(null)
+    const ref: any = useRef(null)
 
     useEffect(() => {
         const clickOutSide = (e: MouseEvent) => {
