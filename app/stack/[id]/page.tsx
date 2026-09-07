@@ -4,7 +4,7 @@ import { NextPage } from 'next'
 interface Props {}
 
 const Page: NextPage<Props> = ({}) => {
-    return <MainContent />
+  return <MainContent />
 }
 
 export default Page

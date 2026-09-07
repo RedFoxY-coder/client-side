@@ -5,13 +5,13 @@ import { useRouter } from 'next/navigation'
 import { FC, useEffect } from 'react'
 
 const Page: FC = ({}) => {
-    const router = useRouter()
+  const router = useRouter()
 
-    useEffect(() => {
-        router.push('/stack/1')
-    }, [router])
+  useEffect(() => {
+    router.push('/welcome')
+  }, [router])
 
-    return <div></div>
+  return <div></div>
 }
 
 export default Page

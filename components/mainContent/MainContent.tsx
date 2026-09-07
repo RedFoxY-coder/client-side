@@ -3,37 +3,58 @@ import { useGetByLevel } from '@/hooks/cardsHooks/useGetByLevel'
 import { $level } from '@/stores/LevelStore'
 import { useUnit } from 'effector-react'
 import { FC } from 'react'
-import Card from './Card'
-import Image from 'next/image'
-import plusIcon from '@/public/icons/plus.png'
-import { $isOpen, changeState } from '@/stores/ModalStore'
-import { createPortal } from 'react-dom'
-import Modal from '../UI/modal/Modal'
-import CreateCardForm from '../UI/modal/forms/CreateCardForm'
+import Card from './card/Card'
+import CardForm from '../UI/forms/CardForm'
+import {
+  $isOpenForm,
+  changeAction,
+  changeFormState,
+} from '@/stores/cardStore'
 const MainContent: FC = ({}) => {
-    const [level, setIsOpen, isOpen] = useUnit([$level, changeState, $isOpen])
-    const { data, isPending } = useGetByLevel(level)
-    return (
-        <div>
-            <div className="  grid grid-cols-5 gap-5 mx-12 mt-16 mb-4 ">
-                {data && data.map((item) => <Card data={item} key={item.id} />)}
-            </div>
-            <button
-                className="text-green-600/50 font-bold ml-16 hover:text-green-600/90"
-                onClick={(e) => {
-                    setIsOpen()
-                }}>
-                Новая карточка
-            </button>
-            {isOpen &&
-                createPortal(
-                    <Modal>
-                        <CreateCardForm />
-                    </Modal>,
-                    document.body
-                )}
-        </div>
-    )
+  const [
+    level,
+    setIsOpen,
+    isOpen,
+    setAction,
+  ] = useUnit([
+    $level,
+    changeFormState,
+    $isOpenForm,
+    changeAction,
+  ])
+  const { data } = useGetByLevel(level)
+
+  return (
+    <div className="mx-16">
+      <div className="grid grid-cols-5 gap-5  mt-16 mb-4 ">
+        {data?.length === 0 && (
+          <div className="text-3xl font-bold p-5 pt-0">
+            Колода пуста
+          </div>
+        )}
+        {data &&
+          data.map((item, index) => (
+            <Card
+              data={item}
+              key={item.id}
+              index={index}
+            />
+          ))}
+      </div>
+      {!isOpen && (
+        <button
+          className="text-green-600/50 font-bold  hover:text-green-600/90 mb-10"
+          onClick={(e) => {
+            setAction('CREATE')
+            setIsOpen(true)
+          }}>
+          Новая карточка
+        </button>
+      )}
+
+      {isOpen && <CardForm />}
+    </div>
+  )
 }
 
 export default MainContent
