@@ -3,23 +3,33 @@ import {
   useForm,
   SubmitHandler,
 } from 'react-hook-form'
-import { TLogin } from '@/types/login.type'
+import { TAuth } from '@/types/login.type'
 import { FC } from 'react'
 import Image from 'next/image'
 import googleIcon from '@/public/icons/googleIcon.png'
 import { useUnit } from 'effector-react'
 import { changeState } from '@/stores/AuthorizationFormStore'
+import { useRegistration } from '@/hooks/authHooks/useRegistration'
 const RegistrationForm: FC = ({}) => {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<TLogin>()
+  } = useForm<TAuth>()
   const [changeFormState] = useUnit([
     changeState,
   ])
+  const registration = useRegistration()
+  const onSubmit: SubmitHandler<
+    TAuth
+  > = (data) => {
+    if (data)
+      registration.mutate({
+        ...data,
+      })
+  }
   return (
-    <div className="mt-54 p-4 text-center">
+    <div className="mt-16 p-4 text-center">
       <div className="mb-4 text-5xl font-bold">
         Регистрация
       </div>
@@ -27,7 +37,11 @@ const RegistrationForm: FC = ({}) => {
         Введите email и пароль для
         регистрации аккаунта
       </div>
-      <form className="m-auto mt-10 w-1/2 *:block *:w-full">
+      <form
+        className="m-auto mt-10 w-1/2 *:block *:w-full"
+        onSubmit={handleSubmit(
+          onSubmit
+        )}>
         <label
           htmlFor="email"
           className="p-2 text-left font-semibold">

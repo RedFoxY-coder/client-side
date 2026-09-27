@@ -3,23 +3,34 @@ import {
   useForm,
   SubmitHandler,
 } from 'react-hook-form'
-import { TLogin } from '@/types/login.type'
+import { TAuth } from '@/types/login.type'
 import { FC } from 'react'
 import Image from 'next/image'
 import googleIcon from '@/public/icons/googleIcon.png'
 import { useUnit } from 'effector-react'
 import { changeState } from '@/stores/AuthorizationFormStore'
+import { useLogin } from '@/hooks/authHooks/useLogin'
 const LoginForm: FC = ({}) => {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<TLogin>()
+  } = useForm<TAuth>()
   const [changeFormState] = useUnit([
     changeState,
   ])
+  const login = useLogin()
+  const onSubmit: SubmitHandler<
+    TAuth
+  > = (data) => {
+    if (data) {
+      login.mutate({
+        ...data,
+      })
+    }
+  }
   return (
-    <div className="mt-54 p-4 text-center">
+    <div className="mt-16 p-4 text-center">
       <div className="mb-4 text-5xl font-bold">
         Вход
       </div>
@@ -27,7 +38,11 @@ const LoginForm: FC = ({}) => {
         Введите email и пароль для входа
         в аккаунт
       </div>
-      <form className="m-auto mt-10 w-1/2 *:block *:w-full">
+      <form
+        className="m-auto mt-10 w-1/2 *:block *:w-full"
+        onSubmit={handleSubmit(
+          onSubmit
+        )}>
         <label
           htmlFor="email"
           className="p-2 text-left font-semibold">
@@ -77,7 +92,7 @@ const LoginForm: FC = ({}) => {
           Войти с помощью Google
         </div>
       </button>
-      <div className="mt-60">
+      <div className="mt-10">
         Нет аккаунта?
         <button
           className="px-2 font-semibold hover:cursor-pointer hover:text-blue-500"

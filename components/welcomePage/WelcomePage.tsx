@@ -15,7 +15,7 @@ const WelcomePage: NextPage<
   return (
     <div
       className={`absolute h-screen w-full ${classes.bg} bg-cover text-center`}>
-      <div className="relative mt-80">
+      <div className="relative top-[10%]">
         <div className="animate-opacity">
           <h1 className="mb-10 text-9xl font-bold text-white">
             Memory Cards

@@ -26,9 +26,9 @@ const MainContent: FC = ({}) => {
 
   return (
     <div className="mx-16">
-      <div className="grid grid-cols-5 gap-5  mt-16 mb-4 ">
+      <div className="mt-16 mb-4 grid grid-cols-5 gap-5">
         {data?.length === 0 && (
-          <div className="text-3xl font-bold p-5 pt-0">
+          <div className="p-5 pt-0 text-3xl font-bold">
             Колода пуста
           </div>
         )}
@@ -43,7 +43,7 @@ const MainContent: FC = ({}) => {
       </div>
       {!isOpen && (
         <button
-          className="text-green-600/50 font-bold  hover:text-green-600/90 mb-10"
+          className="mb-10 font-bold text-green-600/50 hover:text-green-600/90"
           onClick={(e) => {
             setAction('CREATE')
             setIsOpen(true)
