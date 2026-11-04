@@ -3,30 +3,29 @@ import {
   useForm,
   SubmitHandler,
 } from 'react-hook-form'
-import { TAuth } from '@/types/login.type'
+import { TAuthForm } from '@/types/auth.types'
 import { FC } from 'react'
 import Image from 'next/image'
 import googleIcon from '@/public/icons/googleIcon.png'
 import { useUnit } from 'effector-react'
 import { changeState } from '@/stores/AuthorizationFormStore'
-import { useRegistration } from '@/hooks/authHooks/useRegistration'
+import { registrationEvent } from '@/stores/userStore'
 const RegistrationForm: FC = ({}) => {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<TAuth>()
+  } = useForm<TAuthForm>()
   const [changeFormState] = useUnit([
     changeState,
   ])
-  const registration = useRegistration()
+  const registration = useUnit(
+    registrationEvent
+  )
   const onSubmit: SubmitHandler<
-    TAuth
+    TAuthForm
   > = (data) => {
-    if (data)
-      registration.mutate({
-        ...data,
-      })
+    if (data) registration(data)
   }
   return (
     <div className="mt-16 p-4 text-center">

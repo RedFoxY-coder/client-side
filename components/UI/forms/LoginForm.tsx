@@ -3,30 +3,28 @@ import {
   useForm,
   SubmitHandler,
 } from 'react-hook-form'
-import { TAuth } from '@/types/login.type'
+import { TAuthForm } from '@/types/auth.types'
 import { FC } from 'react'
 import Image from 'next/image'
 import googleIcon from '@/public/icons/googleIcon.png'
 import { useUnit } from 'effector-react'
 import { changeState } from '@/stores/AuthorizationFormStore'
-import { useLogin } from '@/hooks/authHooks/useLogin'
+import { loginEvent } from '@/stores/userStore'
 const LoginForm: FC = ({}) => {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<TAuth>()
+  } = useForm<TAuthForm>()
   const [changeFormState] = useUnit([
     changeState,
   ])
-  const login = useLogin()
+  const login = useUnit(loginEvent)
   const onSubmit: SubmitHandler<
-    TAuth
+    TAuthForm
   > = (data) => {
     if (data) {
-      login.mutate({
-        ...data,
-      })
+      login(data)
     }
   }
   return (

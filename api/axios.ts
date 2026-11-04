@@ -6,4 +6,10 @@ export const NewAxios = axios.create({
   headers: {
     'Content-Type': 'application/json',
   },
+  withCredentials: true,
+})
+
+NewAxios.interceptors.request.use((config) => {
+  config.headers.Authorization = `Bearer ${localStorage.getItem('token')}`
+  return config
 })
