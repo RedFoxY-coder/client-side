@@ -22,7 +22,7 @@ const MainContent: FC = ({}) => {
     $isOpenForm,
     changeAction,
   ])
-  const { data } = useGetByLevel(level)
+  const { data } = useGetByLevel(1)
 
   return (
     <div className="mx-16">

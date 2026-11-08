@@ -6,6 +6,8 @@ import {
 import './globals.css'
 
 import Provider from './provider'
+import Header from '@/components/header/Header'
+import Sidebar from '@/components/sidebar/Sidebar'
 
 const geistSans = Geist({
   variable: '--font-geist-sans',

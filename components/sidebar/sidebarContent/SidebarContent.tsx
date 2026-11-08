@@ -22,6 +22,7 @@ const sidebarContent: FC = ({}) => {
     ])
   return (
     <div className="mt-8">
+      test
       <div>
         {data &&
           data.map((item) => (
@@ -41,7 +42,7 @@ const sidebarContent: FC = ({}) => {
               setAction('CREATE')
               setIsOpen(true)
             }}
-            className="ml-5 mt-2 text-green-600/50 font-bold text-sm hover:text-green-600/90">
+            className="mt-2 ml-5 text-sm font-bold text-green-600/50 hover:text-green-600/90">
             Новая колода
           </button>
         )}

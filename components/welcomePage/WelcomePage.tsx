@@ -4,14 +4,39 @@ import classes from './WelcomePage.module.scss'
 import { changeState } from '@/stores/AuthorizationFormStore'
 import { useUnit } from 'effector-react'
 import Link from 'next/link'
+
+import {
+  $isAuthorized,
+  checkAuthEvent,
+} from '@/stores/userStore'
+import { useEffect } from 'react'
+import { useRouter } from 'next/navigation'
+
 interface Props {}
 
 const WelcomePage: NextPage<
   Props
 > = ({}) => {
-  const [changeFormState] = useUnit([
+  const router = useRouter()
+  const [
+    changeFormState,
+    checkAuth,
+    isAuthorized,
+  ] = useUnit([
     changeState,
+    checkAuthEvent,
+    $isAuthorized,
   ])
+  useEffect(() => {
+    console.log('test')
+    checkAuth()
+  }, [checkAuth])
+  useEffect(() => {
+    if (isAuthorized) {
+      router.replace('/stack/1')
+    }
+  }, [isAuthorized, router])
+
   return (
     <div
       className={`absolute h-screen w-full ${classes.bg} bg-cover text-center`}>

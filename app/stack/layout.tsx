@@ -7,8 +7,7 @@ export default function Layout({
 }>) {
   return (
     <div>
-      <Sidebar />
-      <div className="absolute h-screen bg-gray-200/60 w-7/8 left-1/8">
+      <div className="absolute left-1/8 h-screen w-7/8 bg-gray-200/60">
         <Header />
         {children}
       </div>
