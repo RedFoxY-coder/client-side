@@ -24,7 +24,7 @@ const SidebarItem: FC<ISidebarItem> = ({
     <div>
       <Link
         className={clsx(
-          'flex justify-between p-4 items-center rounded-full group m-2',
+          'group m-2 flex items-center justify-between rounded-full p-4',
           {
             'bg-green-100/60':
               id === current,
@@ -32,13 +32,13 @@ const SidebarItem: FC<ISidebarItem> = ({
               id != current,
           }
         )}
-        href={`/stack/${id}`}
+        href={`/stacks/${id}`}
         onClick={() => setCurrent(id)}>
-        <div className="font-bold pl-3">
+        <div className="pl-3 font-bold">
           {name}
         </div>
         <button
-          className="float-end  hidden group-hover:block transition-all duration-300 hover:cursor-pointer opacity-60  hover:opacity-100 pl-3"
+          className="float-end hidden pl-3 opacity-60 transition-all duration-300 group-hover:block hover:cursor-pointer hover:opacity-100"
           onClick={(e) => {
             setIsOpenForm(false)
             setIsOpenMenu(true)

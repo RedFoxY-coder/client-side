@@ -7,7 +7,6 @@ import {
   $level,
   changeLevel,
 } from '@/stores/LevelStore'
-import UserIcon from '../sidebar/UserIcon'
 const Header: FC = () => {
   const [level, setLevel] = useUnit([
     $level,
@@ -15,7 +14,7 @@ const Header: FC = () => {
   ])
 
   return (
-    <header className="flex items-center pl-12 h-18 mx-12 bg-white rounded-lg shadow-lg shadow-gray-300">
+    <header className="mx-12 flex h-18 items-center rounded-lg bg-white pl-12 shadow-lg shadow-gray-300">
       {headerData.map((item) => (
         <div
           key={item.id}
@@ -23,7 +22,7 @@ const Header: FC = () => {
             setLevel(item.id)
           }
           className={clsx(
-            'text-lg h-full items-center flex px-5 rounded-md cursor-pointer ',
+            'flex h-full cursor-pointer items-center rounded-md px-5 text-lg',
             {
               'bg-green-400':
                 level === item.id,
