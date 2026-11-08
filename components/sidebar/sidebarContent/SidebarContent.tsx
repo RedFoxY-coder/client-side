@@ -10,16 +10,24 @@ import {
 } from '@/stores/StackFormStore'
 import { useUnit } from 'effector-react'
 import CreateStackForm from '@/components/UI/forms/CreateStackForm'
+import { $user } from '@/stores/userStore'
 const sidebarContent: FC = ({}) => {
   const [current, setCurrent] =
     useState(1)
+  const [
+    isOpen,
+    setIsOpen,
+    setAction,
+    user,
+  ] = useUnit([
+    $formState,
+    changeState,
+    changeAction,
+    $user,
+  ])
+
   const { data } = useGetStacks()
-  const [isOpen, setIsOpen, setAction] =
-    useUnit([
-      $formState,
-      changeState,
-      changeAction,
-    ])
+
   return (
     <div className="mt-8">
       <div>
@@ -41,7 +49,7 @@ const sidebarContent: FC = ({}) => {
               setAction('CREATE')
               setIsOpen(true)
             }}
-            className="ml-5 mt-2 text-green-600/50 font-bold text-sm hover:text-green-600/90">
+            className="mt-2 ml-5 text-sm font-bold text-green-600/50 hover:text-green-600/90">
             Новая колода
           </button>
         )}

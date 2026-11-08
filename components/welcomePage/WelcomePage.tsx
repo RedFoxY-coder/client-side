@@ -4,14 +4,34 @@ import classes from './WelcomePage.module.scss'
 import { changeState } from '@/stores/AuthorizationFormStore'
 import { useUnit } from 'effector-react'
 import Link from 'next/link'
+import { useEffect } from 'react'
+import {
+  usePathname,
+  useRouter,
+} from 'next/navigation'
+import {
+  $isAuthorized,
+  checkAuthEvent,
+} from '@/stores/userStore'
+import { useCheckAuth } from '@/hooks/authHooks/useCheckAuth'
 interface Props {}
 
 const WelcomePage: NextPage<
   Props
 > = ({}) => {
-  const [changeFormState] = useUnit([
+  useCheckAuth()
+  const router = useRouter()
+  const pathname = usePathname()
+  const [
+    changeFormState,
+    checkAuth,
+    isAuthorized,
+  ] = useUnit([
     changeState,
+    checkAuthEvent,
+    $isAuthorized,
   ])
+
   return (
     <div
       className={`absolute h-screen w-full ${classes.bg} bg-cover text-center`}>

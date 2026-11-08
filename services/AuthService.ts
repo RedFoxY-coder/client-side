@@ -11,4 +11,7 @@ export const AuthService = {
   login(data: TAuthForm): Promise<AxiosResponse<TAuthResponse>> {
     return NewAxios.post<TAuthResponse>('auth/login', data)
   },
+    checkAuth(): Promise<AxiosResponse<TAuthResponse>>{
+    return NewAxios.post<TAuthResponse>('auth/refresh')
+  }
 }

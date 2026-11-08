@@ -21,12 +21,16 @@ export const stackService = {
       return res.data
     })
   },
-  getStacks() {
+  getStacks(userId: number | undefined) {
     return queryOptions({
       queryKey: ['stacks'],
       queryFn: () =>
         NewAxios.get<IStack[]>(
-          `stack`
+          `stack`, {
+            params: {
+              userId
+            }
+          }
         ).then((res) => {
           return res.data
         }),
